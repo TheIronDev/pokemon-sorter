@@ -1,0 +1,34 @@
+/* CSS RESET */
+* {
+	vertical-align: baseline;
+	font-weight: inherit;
+	font-family: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	border: 0 none;
+	outline: 0;
+	padding: 0;
+	margin: 0;
+}
+li{list-style: none}
+
+h1{font-size: 4em;}
+h2{font-size: 3em;}
+h3{font-size: 2em;}
+
+.container{width:100%;min-height:100%;border:1px solid #0f0;background: rgba(100,100,255,.2);overflow: hidden;}
+.container header{background: rgba(70,70,250,.9);text-align: center;}
+
+.menu-1{max-width:600px;}
+.menu-1-options{}
+.menu-1-options li{padding: 1em;cursor: pointer;}
+.menu-1-options li:hover{background: rgba(0,0,0,.2)}
+
+.menu-1,
+.menu-2{float:left;min-height: 100%;}
+
+.menu-2{border-left: 1px solid #000;border-right: 1px solid #000;}
+.menu-3{position: fixed;left:400px;margin: 1em;padding:2em;border:1px solid #0f0;min-height: 20em;min-width: 20em;background: rgba(0,0,0,.3);display: none;}
+
+.pokemon-list-item{background: url(/images/thumbnails.png) no-repeat right top;height:32px;line-height: 2.5em;padding: 0.2em 2em .2em .2em;cursor: pointer;}
+.pokemon-list-item:hover{background-color: rgba(0,0,0,.2);};
