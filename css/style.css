@@ -16,8 +16,12 @@ h1{font-size: 4em;}
 h2{font-size: 3em;}
 h3{font-size: 2em;}
 
-.container{width:100%;min-height:100%;border:1px solid #0f0;background: rgba(100,100,255,.2);overflow: hidden;}
-.container header{background: rgba(70,70,250,.9);text-align: center;}
+html{
+	background: #6393c1; /* Old browsers */
+}
+
+.container{width:100%;min-height:100%;border:1px solid #0f0;overflow: hidden;}
+.container header{text-align: center;border-bottom: 1px solid yellow}
 
 .menu-1{max-width:600px;}
 .menu-1-options{}
@@ -27,8 +31,11 @@ h3{font-size: 2em;}
 .menu-1,
 .menu-2{float:left;min-height: 100%;}
 
-.menu-2{border-left: 1px solid #000;border-right: 1px solid #000;}
-.menu-3{position: fixed;left:400px;margin: 1em;padding:2em;border:1px solid #0f0;min-height: 20em;min-width: 20em;background: rgba(0,0,0,.3);display: none;}
+.menu-2{border-left: 1px solid #ccc;border-right: 1px solid #fff;box-shadow:0.5em 0.4em 0.5em #444, inset 0.3em 0 0.5em #444;}
+.menu-3{position: fixed;left:490px;margin: 1em;padding:2em;border:1px solid #0f0;min-height: 20em;min-width: 15em;background: rgba(0,0,0,.1);display: none;}
 
-.pokemon-list-item{background: url(/images/thumbnails.png) no-repeat right top;height:32px;line-height: 2.5em;padding: 0.2em 2em .2em .2em;cursor: pointer;}
-.pokemon-list-item:hover{background-color: rgba(0,0,0,.2);};
+
+.pokemon-list{border-left:1px solid #fff;border-right:1px solid #ccc;}
+.pokemon{cursor: pointer;padding:0 1em;}
+.pokemon:hover{background-color: rgba(0,0,0,.2);}
+.pokemon-inner{background: url(/images/thumbnails.png) no-repeat right top;height:32px;line-height: 2.5em;padding: 0.2em 2em .2em .2em;}
