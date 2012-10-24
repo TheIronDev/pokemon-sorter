@@ -52,6 +52,7 @@ var App = {
 				},
 				template: _.template('<div class="pokemon-inner" style="background-position: right <%= thumbnailPosition %>px;">\
 					<input type="checkbox" <% if(caught) print("checked=checked") %> /> <%= id %>: <%= name %></div>'),
+				pokemonInfoTemplate: _.template('<h3><%= name %></h3><img class="pokemon-image" src="<%= image %>" /><br/><% print(this.printLocations(locations)) %>'),
 				tagName: "div",
 				className: "pokemon", 
 				render: function() {
@@ -70,8 +71,64 @@ var App = {
 					this.model.toggleCaught();
 				},
 				displayPokemonInfo: function() {
+					var attributes = this.model.toJSON();
 					//Image Sources: http://pokemondb.net/			
-					$('.menu-3').html("<img src='"+this.model.get("image")+"' />"+this.model.get("name"));
+					//$('.menu-3').html("<img src='"+this.model.get("image")+"' />"+this.model.get("name")+" "+this.model.get("locations"));					
+					$('.menu-3').html(this.pokemonInfoTemplate(attributes));
+				},
+				printLocations: function(locations) {
+					var $wrapper = $('<div>');
+					var $gameSets = $('<ul>');
+					$gameSets.attr("class", "location-game-sets")
+
+					// This code is not very dry, and should be refactored
+					if(locations.black2 !== undefined) {
+						var $gameSet = $('<li>');
+						$gameSet.attr("class", "location-game-set");
+						var $gameSetGames = $('<ul>');
+						$gameSetGames.attr("class", "location-game-set-games");
+
+						$gameSet.append("Pokemon Black/White");
+						$gameSetGames.append($('<li>').html("Black 2: "+ locations.black2));
+						$gameSetGames.append($('<li>').html("White 2: "+ locations.white2));
+						$gameSetGames.append($('<li>').html("Black: "+ locations.black));
+						$gameSetGames.append($('<li>').html("White 2: "+ locations.white));
+						
+						$gameSet.append($gameSetGames);
+						$gameSets.append($gameSet);
+					}
+					if(locations.platinum !== undefined) {
+						var $gameSet = $('<li>');
+						$gameSet.attr("class", "location-game-set");
+						var $gameSetGames = $('<ul>');
+						$gameSetGames.attr("class", "location-game-set-games");
+
+						$gameSet.append("Pokemon Diamond/Pearl/Platinum");
+						$gameSetGames.append($('<li>').html("Platinum: "+ locations.platinum));
+						$gameSetGames.append($('<li>').html("Diamond: "+ locations.diamond));
+						$gameSetGames.append($('<li>').html("Pearl: "+ locations.pearl));
+												
+						$gameSet.append($gameSetGames);
+						$gameSets.append($gameSet);
+					}
+					if(locations.platinum !== undefined) {
+						var $gameSet = $('<li>');
+						$gameSet.attr("class", "location-game-set");
+						var $gameSetGames = $('<ul>');
+						$gameSetGames.attr("class", "location-game-set-games");
+
+						$gameSet.append("Pokemon HeartGold/SoulSilver");
+						$gameSetGames.append($('<li>').html("Heart Gold: "+ locations.heartgold));
+						$gameSetGames.append($('<li>').html("Soul Silver: "+ locations.soulsilver));
+						
+												
+						$gameSet.append($gameSetGames);
+						$gameSets.append($gameSet);
+					}
+					
+					$wrapper.append("<h4>Locations</h4>");
+					$wrapper.append($gameSets);
+					return $wrapper.html();
 				}
 			});
 
@@ -100,11 +157,7 @@ var App = {
 				$('.menu-2').html(App.events.drawPokedex());
 				$('.menu-3').show();
 			});
-
-			$('.pokemon-list-item').live("click", function() {
-				$('.menu-3').show();
-				App.events.drawPokemon($('.menu-3'), $(this).attr("data-pokemon-id"));
-			});			
+			
 		},
 		populatePokedex: function(){
 			var pokemonList = App.variables.session.pokemonList;
@@ -140,3 +193,5 @@ var App = {
 $(document).ready(function(){
 	App.init();
 });
+
+

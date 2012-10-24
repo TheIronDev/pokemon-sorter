@@ -10,7 +10,6 @@
 	padding: 0;
 	margin: 0;
 }
-li{list-style: none}
 
 h1{font-size: 4em;}
 h2{font-size: 3em;}
@@ -20,22 +19,43 @@ html{
 	background: #6393c1; /* Old browsers */
 }
 
-.container{width:100%;min-height:100%;border:1px solid #0f0;overflow: hidden;}
-.container header{text-align: center;border-bottom: 1px solid yellow}
+.container{width:100%;min-height:100%;overflow: hidden;}
 
-.menu-1{max-width:600px;}
+.menu-1{width:30%;max-width: 600px;padding: 5em 0 2em;position:fixed;
+background: #f2342e; /* Old browsers */
+background: -moz-linear-gradient(top,  #f2342e 1%, #ef8381 25%, #f2342e 50%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#f2342e), color-stop(25%,#ef8381), color-stop(50%,#f2342e)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #f2342e 1%,#ef8381 25%,#f2342e 50%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #f2342e 1%,#ef8381 25%,#f2342e 50%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #f2342e 1%,#ef8381 25%,#f2342e 50%); /* IE10+ */
+background: linear-gradient(to bottom,  #f2342e 1%,#ef8381 25%,#f2342e 50%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2342e', endColorstr='#f2342e',GradientType=0 ); /* IE6-9 */
+
+}
+.menu-1 header{text-align: center;font-size: 0.5em;background: rgba(10, 150, 255, .3);padding:0.5em 0;}
 .menu-1-options{}
 .menu-1-options li{padding: 1em;cursor: pointer;}
 .menu-1-options li:hover{background: rgba(0,0,0,.2)}
 
+.menu-1-options li .sources{}
+.menu-1-options li .sources li{padding: 0;}
+
+
 .menu-1,
 .menu-2{float:left;min-height: 100%;}
 
-.menu-2{border-left: 1px solid #ccc;border-right: 1px solid #fff;box-shadow:0.5em 0.4em 0.5em #444, inset 0.3em 0 0.5em #444;}
-.menu-3{position: fixed;left:490px;margin: 1em;padding:2em;border:1px solid #0f0;min-height: 20em;min-width: 15em;background: rgba(0,0,0,.1);display: none;}
-
+.menu-2{border-left: 1px solid #ccc;border-right: 1px solid #fff;box-shadow:0.5em 0.4em 0.5em #444, inset 0.3em 0 0.5em #444;margin-left: 30%;}
+.menu-3{position: fixed;left:490px;margin: 1em;padding:1em;border:1px solid #0f0;min-height: 20em;min-width: 15em;background: rgba(0,0,0,.1);display: none;}
+.menu-3 h3{float:left;}
+.menu-3 .pokemon-thumbnail{margin-top:-2em;}
 
 .pokemon-list{border-left:1px solid #fff;border-right:1px solid #ccc;}
 .pokemon{cursor: pointer;padding:0 1em;}
 .pokemon:hover{background-color: rgba(0,0,0,.2);}
 .pokemon-inner{background: url(/images/thumbnails.png) no-repeat right top;height:32px;line-height: 2.5em;padding: 0.2em 2em .2em .2em;}
+
+.location-game-sets {}
+.location-game-sets .location-game-set{margin-left:1em;}
+.location-game-sets .location-game-set .location-game-set-games{margin-left: 1em}
+
+.moreinfo{position: fixed;bottom: 0;left: 0;font-size: 0.8em;width: 30%;max-width: 600px}
