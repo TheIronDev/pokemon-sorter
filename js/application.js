@@ -71,9 +71,7 @@ var App = {
 					this.model.toggleCaught();
 				},
 				displayPokemonInfo: function() {
-					var attributes = this.model.toJSON();
-					//Image Sources: http://pokemondb.net/			
-					//$('.menu-3').html("<img src='"+this.model.get("image")+"' />"+this.model.get("name")+" "+this.model.get("locations"));					
+					var attributes = this.model.toJSON();					
 					$('.menu-3').html(this.pokemonInfoTemplate(attributes));
 				},
 				printLocations: function(locations) {
@@ -89,10 +87,10 @@ var App = {
 						$gameSetGames.attr("class", "location-game-set-games");
 
 						$gameSet.append("Pokemon Black/White");
-						$gameSetGames.append($('<li>').html("Black 2: "+ locations.black2));
-						$gameSetGames.append($('<li>').html("White 2: "+ locations.white2));
-						$gameSetGames.append($('<li>').html("Black: "+ locations.black));
-						$gameSetGames.append($('<li>').html("White 2: "+ locations.white));
+						$gameSetGames.append($('<li class="game">').html("<span class='game-title'>Black 2:</span><span class='game-locations'> "+ locations.black2+"</span>"));
+						$gameSetGames.append($('<li class="game even">').html("<span class='game-title'>White 2:</span><span class='game-locations'> "+ locations.white2+"</span>"));
+						$gameSetGames.append($('<li class="game">').html("<span class='game-title'>Black:</span><span class='game-locations'> "+ locations.black+"</span>"));
+						$gameSetGames.append($('<li class="game even">').html("<span class='game-title'>White:</span><span class='game-locations'> "+ locations.white+"</span>"));
 						
 						$gameSet.append($gameSetGames);
 						$gameSets.append($gameSet);
@@ -104,9 +102,9 @@ var App = {
 						$gameSetGames.attr("class", "location-game-set-games");
 
 						$gameSet.append("Pokemon Diamond/Pearl/Platinum");
-						$gameSetGames.append($('<li>').html("Platinum: "+ locations.platinum));
-						$gameSetGames.append($('<li>').html("Diamond: "+ locations.diamond));
-						$gameSetGames.append($('<li>').html("Pearl: "+ locations.pearl));
+						$gameSetGames.append($('<li class="game">').html("<span class='game-title'>Platinum:</span><span class='game-locations'> "+ locations.platinum+"</span>"));
+						$gameSetGames.append($('<li class="game even">').html("<span class='game-title'>Diamond:</span><span class='game-locations'> "+ locations.diamond+"</span>"));
+						$gameSetGames.append($('<li class="game">').html("<span class='game-title'>Pearl:</span><span class='game-locations'> "+ locations.pearl+"</span>"));
 												
 						$gameSet.append($gameSetGames);
 						$gameSets.append($gameSet);
@@ -118,8 +116,8 @@ var App = {
 						$gameSetGames.attr("class", "location-game-set-games");
 
 						$gameSet.append("Pokemon HeartGold/SoulSilver");
-						$gameSetGames.append($('<li>').html("Heart Gold: "+ locations.heartgold));
-						$gameSetGames.append($('<li>').html("Soul Silver: "+ locations.soulsilver));
+						$gameSetGames.append($('<li class="game">').html("<span class='game-title'>Heart Gold:</span><span class='game-locations'> "+ locations.heartgold+"</span>"));
+						$gameSetGames.append($('<li class="game even">').html("<span class='game-title'>Soul Silver:</span><span class='game-locations'> "+ locations.soulsilver+"</span>"));
 						
 												
 						$gameSet.append($gameSetGames);
@@ -153,9 +151,10 @@ var App = {
 
 		},
 		handlers: function(){
-			$('.pokeList').live("click", function(){				
+			$('.pokeList').live("click", function(){
 				$('.menu-2').html(App.events.drawPokedex());
-				$('.menu-3').show();
+				$('.menu-2').toggle("slide");
+				$('.menu-3').toggle("slide");
 			});
 			
 		},
