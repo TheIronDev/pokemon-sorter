@@ -22,7 +22,7 @@ html{
 
 .container{width:100%;min-height:100%;overflow: hidden;}
 
-.menu-1{width:30%;max-width: 600px;padding: 5em 0 2em;position:fixed;
+.menu-1{border-right: 1px solid #ccc;width:30%;max-width: 600px;padding: 5em 0 2em;position:fixed;box-shadow:0.3em 0 0.5em #444;
 background: #f2342e; /* Old browsers */
 background: -moz-linear-gradient(top,  #f2342e 1%, #ef8381 25%, #f2342e 50%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#f2342e), color-stop(25%,#ef8381), color-stop(50%,#f2342e)); /* Chrome,Safari4+ */
@@ -45,7 +45,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2342e', end
 .menu-1,
 .menu-2{float:left;min-height: 100%;}
 
-.menu-2{border-left: 1px solid #ccc;border-right: 1px solid #fff;box-shadow:0.5em 0.4em 0.5em #444, inset 0.3em 0 0.5em #444;position:absolute;left: 30%;display:none;width:20%;min-width:200px;}
+.menu-2{border-right: 1px solid #fff;box-shadow:0.5em 0.4em 0.5em #444;position:absolute;left: 30%;display:none;width:20%;min-width:200px;}
 .menu-3{position: fixed;left:55%;margin: 1em;padding:1em;border:1px solid #0f0;min-height: 20em;min-width: 15em;background: rgba(0,0,0,.1);display: none;max-width:35%;}
 .menu-3 h3{float:left;}
 .menu-3 .pokemon-image{margin-top:-2em;}
@@ -53,6 +53,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2342e', end
 .pokemon-list{border-left:1px solid #fff;border-right:1px solid #ccc;}
 .pokemon{cursor: pointer;padding:0 1em;}
 .pokemon:hover{background-color: rgba(0,0,0,.2);}
+
+.pokemon-sort{padding: 0 1em;overflow: hidden}
+.pokemon-sort ul{margin: 0 1em;list-style: none}
+.pokemon-sort ul li{float:left;margin-right: 0.5em;cursor: pointer;padding: 0.5em;font-size: 0.8em}
+.pokemon-sort ul li:hover{background: rgba(0,0,0,.1)}
+.pokemon-sort ul li.on{color:yellow;}
+.pokemon-search{padding:1em;}
 .pokemon-inner{background: url(/images/thumbnails.png) no-repeat right top;height:32px;line-height: 2.5em;padding: 0.2em 2em .2em .2em;}
 
 .location-game-sets {}

@@ -32,7 +32,6 @@ var App = {
 				toggleCaught: function() {
 					if(!this.get("caught")) {
 						this.set({"caught": true})
-
 					} else {
 						this.set({"caught": false})
 					}
@@ -56,7 +55,7 @@ var App = {
 				tagName: "div",
 				className: "pokemon", 
 				render: function() {
-					var attributes = this.model.toJSON();					
+					var attributes = this.model.toJSON();
 					this.$el.html(this.template(attributes));
 					return this;
 				},
@@ -133,30 +132,71 @@ var App = {
 			// View for List of Pokemon
 			App.variables.backbone.PokemonListView = Backbone.View.extend({
 				initialize: function(){
-					this.collection.on('add', this.addOne, this);
-					this.collection.on('reset', this.addAll, this);
+					this.collection.on('reset', this.render, this);
 				},
-				className: "pokemon-list",
-				render: function() {
-					this.addAll();
+				render: function() {					
+					this.addAll();				
 				},
 				addAll: function() {
+					this.$el.html("");
 					this.collection.forEach(this.addOne, this);
 				},
 				addOne: function(pokemon) {
-					var pokemonView = new App.variables.backbone.PokemonView({model:pokemon});
+					var pokemonView = new App.variables.backbone.PokemonView({model:pokemon});					
 					this.$el.append(pokemonView.render().el);
+				},
+				searchPokemon: function(searchFilter) {
+					searchFilter = searchFilter.toLowerCase();
+					this.$el.html("");
+					var filterdList = this.collection.filter(function(pokemon){
+						var pokemonName = (pokemon.get("name").toLowerCase());
+						if(pokemonName.indexOf(searchFilter) != -1) {
+							return pokemon;
+						}
+					});
+					var sortType = $('.sort-option.on').attr("data-sort");
+						
+					filterdList.forEach(this.addOne, this);
+				},
+				caughtPokemon: function() {
+					this.$el.html("");
+					var filterdList = this.collection.where({caught: true});								
+					filterdList.forEach(this.addOne, this);
+				},
+				missingPokemon: function() {
+					this.$el.html("");
+					var filterdList = this.collection.where({caught: false});					
+					filterdList.forEach(this.addOne, this);	
 				}
 			});
 
 		},
 		handlers: function(){
 			$('.pokeList').live("click", function(){
-				$('.menu-2').html(App.events.drawPokedex());
+				$('.menu-2 .pokemon-list').html(App.events.drawPokedex());
 				$('.menu-2').toggle("slide");
 				$('.menu-3').toggle("slide");
 			});
-			
+			$('.searchPokemon').on("keyup", function() {
+				$('.menu-2 .pokemon-list').html(App.events.searchPokemon($(this).val()));
+			})
+
+			$('.pokemon-sort .sort-option').on("click", function() {
+				$('.pokemon-sort .sort-option').removeClass("on");
+				var $this = $(this);
+				var sortType = $this.attr("data-sort")
+				$this.addClass("on");
+				
+				if(sortType == "caught") {
+					App.variables.session.pokemonListView.caughtPokemon();
+				} else if(sortType == "missing") {
+					App.variables.session.pokemonListView.missingPokemon();
+				} else {
+					App.variables.session.pokemonListView.addAll();
+				}
+
+				
+			})
 		},
 		populatePokedex: function(){
 			var pokemonList = App.variables.session.pokemonList;
@@ -166,11 +206,13 @@ var App = {
 			});
 		},
 		drawPokedex: function(){
-			var pokemonList = new App.variables.backbone.PokemonListView({collection: App.variables.session.pokemonList});
+			var pokemonList = App.variables.session.pokemonListView = new App.variables.backbone.PokemonListView({collection: App.variables.session.pokemonList});
 			pokemonList.render();
 			return pokemonList.el;
 		},
-
+		searchPokemon: function(searchName) {
+			App.variables.session.pokemonListView.searchPokemon(searchName);
+		}
 	},
 	variables: {		
 		session: {
