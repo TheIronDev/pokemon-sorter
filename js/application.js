@@ -51,7 +51,7 @@ var App = {
 				},
 				template: _.template('<div class="pokemon-inner" style="background-position: right <%= thumbnailPosition %>px;">\
 					<input type="checkbox" <% if(caught) print("checked=checked") %> /> <%= id %>: <%= name %></div>'),
-				pokemonInfoTemplate: _.template('<h3><%= name %></h3><img class="pokemon-image" src="<%= image %>" /><br/><% print(this.printLocations(locations)) %>'),
+				pokemonInfoTemplate: _.template('<h3><%= name %></h3><img class="pokemon-image" src="<%= image %>" /><br/><% print(this.printLocations(locations)) %><br/><a href="<%= moreInfo.veekun %>">Veekums\'s Entry</a> '),
 				tagName: "div",
 				className: "pokemon", 
 				render: function() {
@@ -60,14 +60,21 @@ var App = {
 					return this;
 				},
 				remove: function() {
-					this.$el.remove();
+					var pokemonView = this;
+					this.$el.fadeOut(500, function(){
+						pokemonView.$el.remove();	
+					});					
 				},
 				events: {
 					"click .pokemon-inner": "toggleCaught",
-					"hover .pokemon-inner": "displayPokemonInfo"
+					"mouseover .pokemon-inner": "displayPokemonInfo"
 				},
 				toggleCaught: function() {
+					var pokeSort = App.variables.session.sortBy;
 					this.model.toggleCaught();
+					if(pokeSort != "all") {
+						this.remove();
+					}
 				},
 				displayPokemonInfo: function() {
 					var attributes = this.model.toJSON();					
@@ -75,55 +82,48 @@ var App = {
 				},
 				printLocations: function(locations) {
 					var $wrapper = $('<div>');
-					var $gameSets = $('<ul>');
-					$gameSets.attr("class", "location-game-sets")
-
-					// This code is not very dry, and should be refactored
-					if(locations.black2 !== undefined) {
-						var $gameSet = $('<li>');
-						$gameSet.attr("class", "location-game-set");
-						var $gameSetGames = $('<ul>');
-						$gameSetGames.attr("class", "location-game-set-games");
-
-						$gameSet.append("Pokemon Black/White");
-						$gameSetGames.append($('<li class="game">').html("<span class='game-title'>Black 2:</span><span class='game-locations'> "+ locations.black2+"</span>"));
-						$gameSetGames.append($('<li class="game even">').html("<span class='game-title'>White 2:</span><span class='game-locations'> "+ locations.white2+"</span>"));
-						$gameSetGames.append($('<li class="game">').html("<span class='game-title'>Black:</span><span class='game-locations'> "+ locations.black+"</span>"));
-						$gameSetGames.append($('<li class="game even">').html("<span class='game-title'>White:</span><span class='game-locations'> "+ locations.white+"</span>"));
-						
-						$gameSet.append($gameSetGames);
-						$gameSets.append($gameSet);
-					}
-					if(locations.platinum !== undefined) {
-						var $gameSet = $('<li>');
-						$gameSet.attr("class", "location-game-set");
-						var $gameSetGames = $('<ul>');
-						$gameSetGames.attr("class", "location-game-set-games");
-
-						$gameSet.append("Pokemon Diamond/Pearl/Platinum");
-						$gameSetGames.append($('<li class="game">').html("<span class='game-title'>Platinum:</span><span class='game-locations'> "+ locations.platinum+"</span>"));
-						$gameSetGames.append($('<li class="game even">').html("<span class='game-title'>Diamond:</span><span class='game-locations'> "+ locations.diamond+"</span>"));
-						$gameSetGames.append($('<li class="game">').html("<span class='game-title'>Pearl:</span><span class='game-locations'> "+ locations.pearl+"</span>"));
-												
-						$gameSet.append($gameSetGames);
-						$gameSets.append($gameSet);
-					}
-					if(locations.platinum !== undefined) {
-						var $gameSet = $('<li>');
-						$gameSet.attr("class", "location-game-set");
-						var $gameSetGames = $('<ul>');
-						$gameSetGames.attr("class", "location-game-set-games");
-
-						$gameSet.append("Pokemon HeartGold/SoulSilver");
-						$gameSetGames.append($('<li class="game">').html("<span class='game-title'>Heart Gold:</span><span class='game-locations'> "+ locations.heartgold+"</span>"));
-						$gameSetGames.append($('<li class="game even">').html("<span class='game-title'>Soul Silver:</span><span class='game-locations'> "+ locations.soulsilver+"</span>"));
-						
-												
-						$gameSet.append($gameSetGames);
-						$gameSets.append($gameSet);
-					}
-					
 					$wrapper.append("<h4>Locations</h4>");
+					var $gameSets = $('<ul>');
+					$gameSets.attr("class", "location-game-sets");
+
+					// Formatting JSON used to store the display layer
+					var gameSetsJson = {
+						"Pokemon Black/White": {
+							"Black 2": locations.black2,
+							"White 2": locations.white2,
+							"Black": locations.black,
+							"White": locations.white							
+						},
+						"Pokemon Diamond/Pearl/Platinum" : {
+							"Platinum": locations.platinum || "Not available",
+							"Diamond": locations.diamond || "Not available",
+							"Pearl": locations.pearl || "Not available"
+						},
+						"Pokemon HeartGold/SoulSilver": {
+							"Heart Gold": locations.heartgold || "Not available",
+							"Soul Silver": locations.soulsilver || "Not available"
+						}
+					};
+					
+					// Refactored the previous code by using a display-layor json
+					for(var gameSet in gameSetsJson) {
+						var $gameSet = $('<li>');
+						$gameSet.attr("class", "location-game-set");
+						var $gameSetGames = $('<ul>');
+						$gameSetGames.attr("class", "location-game-set-games");
+						$gameSet.append(gameSet);
+							
+						for(var game in gameSetsJson[gameSet]) {
+							var $game = $('<li class="game">');							
+							
+							$game.html("<span class='game-title'>"+game+":</span><span class='game-locations'> "+ gameSetsJson[gameSet][game]+"</span>");
+							$gameSetGames.append($game);
+						}
+
+						$gameSet.append($gameSetGames);
+						$gameSets.append($gameSet);
+					}
+
 					$wrapper.append($gameSets);
 					return $wrapper.html();
 				}
@@ -147,55 +147,57 @@ var App = {
 				},
 				searchPokemon: function(searchFilter) {
 					searchFilter = searchFilter.toLowerCase();
+					var sortType = App.variables.session.sortBy;
 					this.$el.html("");
-					var filterdList = this.collection.filter(function(pokemon){
+					var filteredList = this.collection.filter(function(pokemon){
 						var pokemonName = (pokemon.get("name").toLowerCase());
-						if(pokemonName.indexOf(searchFilter) != -1) {
-							return pokemon;
+						var isPokemonCaught = pokemon.get("caught");
+						if(pokemonName.indexOf(searchFilter) != -1 ) {
+							if(sortType == "all") {
+								return pokemon;
+							} else if(sortType == "caught" && isPokemonCaught) {
+								return pokemon;
+							} else if(sortType == "missing" && !isPokemonCaught) {
+								return pokemon;
+							}
 						}
 					});
-					var sortType = $('.sort-option.on').attr("data-sort");
-						
-					filterdList.forEach(this.addOne, this);
+											
+					filteredList.forEach(this.addOne, this);
 				},
 				caughtPokemon: function() {
 					this.$el.html("");
-					var filterdList = this.collection.where({caught: true});								
-					filterdList.forEach(this.addOne, this);
+					var filteredList = this.collection.where({caught: true});
+					filteredList.forEach(this.addOne, this);
 				},
 				missingPokemon: function() {
 					this.$el.html("");
-					var filterdList = this.collection.where({caught: false});					
-					filterdList.forEach(this.addOne, this);	
+					var filteredList = this.collection.where({caught: false});					
+					filteredList.forEach(this.addOne, this);	
 				}
 			});
 
 		},
 		handlers: function(){
+
+			// Now that I am using Backbone, having these handlers here are potentially questionable.
+			// I'll need to investigate more...
 			$('.pokeList').live("click", function(){
 				$('.menu-2 .pokemon-list').html(App.events.drawPokedex());
 				$('.menu-2').toggle("slide");
 				$('.menu-3').toggle("slide");
 			});
 			$('.searchPokemon').on("keyup", function() {
-				$('.menu-2 .pokemon-list').html(App.events.searchPokemon($(this).val()));
+				var searchTerm = App.variables.session.searchTerm = $(this).val();
+				$('.menu-2 .pokemon-list').html(App.events.searchPokemon( searchTerm ) );
 			})
 
 			$('.pokemon-sort .sort-option').on("click", function() {
 				$('.pokemon-sort .sort-option').removeClass("on");
-				var $this = $(this);
-				var sortType = $this.attr("data-sort")
+				var $this = $(this);				
 				$this.addClass("on");
-				
-				if(sortType == "caught") {
-					App.variables.session.pokemonListView.caughtPokemon();
-				} else if(sortType == "missing") {
-					App.variables.session.pokemonListView.missingPokemon();
-				} else {
-					App.variables.session.pokemonListView.addAll();
-				}
-
-				
+				App.variables.session.sortBy = $this.attr("data-sort");
+				App.variables.session.pokemonListView.searchPokemon( App.variables.session.searchTerm );
 			})
 		},
 		populatePokedex: function(){
@@ -219,6 +221,8 @@ var App = {
 			pokemonList: {},
 			currentUser: {},
 			pokemonListView: {},
+			sortBy: "all",
+			searchTerm: ""
 		},
 		backbone: {
 			User: {},		
