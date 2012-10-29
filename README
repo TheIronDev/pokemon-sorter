@@ -4,3 +4,7 @@ All Pokemon data and images are sole property of Nintendo and GameFreak, Inc. Th
 
 Contributers:
 Tyler Dillerstone: tehtooya@gmail.com
+
+
+Version 0.8
+The app is in a workable state. Currently, data does not persist upon browser refresh, and the overall implementation does not work well on smaller devices. Those two features are my requirement for incrementing to version 1 and rolling this out live.

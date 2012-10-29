@@ -44,7 +44,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2342e', end
 .menu-1,
 .menu-2{float:left;min-height: 100%;}
 
-.menu-2{border-right: 1px solid #fff;box-shadow:0.5em 0.4em 0.5em #444;position:absolute;left: 30%;display:none;width:20%;min-width:200px;}
+.menu-2{border-right: 1px solid #fff;box-shadow:0.5em 0.4em 0.5em #444;position:absolute;left: 30%;display:none;width:20%;min-width:220px;}
 .menu-3{position: fixed;left:55%;margin: 1em;padding:1em;border:1px solid #000;border-radius:1em;min-height: 20em;min-width: 15em;background: rgba(255,255,255,.1);display: none;max-width:35%;}
 .menu-3 h3{float:left;}
 .menu-3 .pokemon-image{margin-top:-2em;}
