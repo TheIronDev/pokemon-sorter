@@ -7,40 +7,37 @@ var App = {
 			this.backboneExtends();
 			this.backboneInstances();
 			
-			App.variables.session.currentUser = new App.variables.backbone.User();
 			this.handlers();
 		},
 		backboneInstances: function(){
-			var pokemonList = App.variables.session.pokemonList = new App.variables.backbone.PokemonList();
+			var pokemonList = App.variables.session.pokemonList = new App.variables.backbone.PokemonList();			
 			this.populatePokedex();	
 		},
 		backboneExtends: function(){
 
-			// Not in use yet
-			App.variables.backbone.User = Backbone.Model.extend({
-				defaults: {
-					name: "Trainer",
-					game: "Pokemon Black2"
-				}
-			});
 
 			// Pokemon Object (i.e Bulbasaur)			
 			App.variables.backbone.Pokemon = Backbone.Model.extend({
+				initialize: function() {
+					this.fetch()
+				},
 				defaults: {
 					caught:false
 				},
 				toggleCaught: function() {
 					if(!this.get("caught")) {
-						this.set({"caught": true})
+						this.set({"caught": true});
 					} else {
-						this.set({"caught": false})
+						this.set({"caught": false});						
 					}
+					this.save();
 				}
 			});
 
 			// Collection of Pokemon Objects
 			App.variables.backbone.PokemonList = Backbone.Collection.extend({
-				model: App.variables.backbone.Pokemon
+				model: App.variables.backbone.Pokemon,
+				localStorage: new Store("pokedex")
 			});
 
 			// View for individual Pokemon
