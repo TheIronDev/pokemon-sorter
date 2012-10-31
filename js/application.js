@@ -48,7 +48,7 @@ var App = {
 				},
 				template: _.template('<div class="pokemon-inner" style="background-position: right <%= thumbnailPosition %>px;">\
 					<input type="checkbox" <% if(caught) print("checked=checked") %> /> <%= id %>: <%= name %></div>'),
-				pokemonInfoTemplate: _.template('<h3><%= name %></h3><img class="pokemon-image" src="<%= image %>" /><br/><% print(this.printLocations(locations)) %><br/><a href="<%= moreInfo.veekun %>">Veekums\'s Entry</a> '),
+				pokemonInfoTemplate: _.template('<h3 class="pokemon-name"><%= name %></h3><img class="pokemon-image" src="<%= image %>" /><br/><% print(this.printLocations(locations)) %><br/><a href="<%= moreInfo.veekun %>">Veekums\'s Entry</a> '),
 				tagName: "div",
 				className: "pokemon", 
 				render: function() {
@@ -181,6 +181,7 @@ var App = {
 			// I'll need to investigate more...
 			$('.pokeList').live("click", function(){
 				$('.menu-2 .pokemon-list').html(App.events.drawPokedex());
+				$('.menu-1').toggle("slide");
 				$('.menu-2').toggle("slide");
 				$('.menu-3').toggle("slide");
 			});
@@ -195,7 +196,13 @@ var App = {
 				$this.addClass("on");
 				App.variables.session.sortBy = $this.attr("data-sort");
 				App.variables.session.pokemonListView.searchPokemon( App.variables.session.searchTerm );
-			})
+			});
+			$('.back').on("click", function(){
+				$('.menu-1').toggle("slide");
+				$('.menu-2').toggle("slide");
+				$('.menu-3').toggle("slide");
+
+			});
 		},
 		populatePokedex: function(){
 			var pokemonList = App.variables.session.pokemonList;
