@@ -1,0 +1,3 @@
+RewriteEngine on 
+RewriteRule (css|images|videos|js|swf|xml)/(.*)$ $1/$2 [NC,L,QSA]
+RewriteRule ^(?!index\.php$)(.*)$ index.php?path=$1 [L]

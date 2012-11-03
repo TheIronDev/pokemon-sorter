@@ -9,11 +9,68 @@ var App = {
 			
 			this.handlers();
 		},
-		backboneInstances: function(){
+		backboneInstances: function(){						
 			var pokemonList = App.variables.session.pokemonList = new App.variables.backbone.PokemonList();			
-			this.populatePokedex();	
+			App.variables.session.router = new App.variables.backbone.router({"pokemonList": pokemonList});
+			App.variables.session.router.start();
+			
+			this.populatePokedex();
+
 		},
 		backboneExtends: function(){
+
+			// Backbone Routes
+			App.variables.backbone.router = Backbone.Router.extend({
+				routes: {
+					"": "index",
+					"pokedex": "pokedex",
+					"pokedex/caught": "caught",
+					"pokedex/missing": "missing"
+				},
+				index: function(){
+					if($('.menu-2').is(':visible')) {
+						$('.menu-1').toggle("slide");
+						$('.menu-2').toggle("slide");
+						$('.menu-3').toggle("slide");
+					}
+				},
+				pokedex: function() {
+					$('.menu-2 .pokemon-list').html(App.events.drawPokedex());
+					if($('.menu-1').is(':visible')) {
+						$('.menu-1').toggle("slide");
+						$('.menu-2').toggle("slide");
+						$('.menu-3').toggle("slide");
+					}
+					$('.pokemon-sort .sort-option').removeClass("on");
+					$('.sort-option[data-sort=all]').addClass("on");
+					
+				},
+				caught: function() {					
+					App.variables.session.sortBy = "caught";
+					this.sort("caught");
+				},
+				missing: function() {					
+					App.variables.session.sortBy = "missing";
+					this.sort("missing");
+				},
+				sort: function(sortBy) {
+					if($('.menu-1').is(':visible')) {
+						$('.menu-1').toggle("slide");
+						$('.menu-2').toggle("slide");
+						$('.menu-3').toggle("slide");
+					}
+					$('.pokemon-sort .sort-option').removeClass("on");
+					$('.sort-option[data-sort='+sortBy+']').addClass("on");
+
+					App.variables.session.pokemonListView.searchPokemon( App.variables.session.searchTerm );
+				},
+				initialize: function(options) {
+					this.pokemonList = options.pokemonList;
+				},
+				start: function() {
+					Backbone.history.start({pushState: true});
+				}
+			});
 
 
 			// Pokemon Object (i.e Bulbasaur)			
@@ -163,11 +220,16 @@ var App = {
 					filteredList.forEach(this.addOne, this);
 				},
 				caughtPokemon: function() {
+					
+
 					this.$el.html("");
 					var filteredList = this.collection.where({caught: true});
 					filteredList.forEach(this.addOne, this);
 				},
 				missingPokemon: function() {
+					
+
+
 					this.$el.html("");
 					var filteredList = this.collection.where({caught: false});					
 					filteredList.forEach(this.addOne, this);	
@@ -180,24 +242,43 @@ var App = {
 			// Now that I am using Backbone, having these handlers here are potentially questionable.
 			// I'll need to investigate more...
 			$('.pokeList').live("click", function(){
-				$('.menu-2 .pokemon-list').html(App.events.drawPokedex());
-				$('.menu-1').toggle("slide");
-				$('.menu-2').toggle("slide");
-				$('.menu-3').toggle("slide");
+
+					App.variables.session.router.navigate("pokedex", {
+						trigger: true
+					})				
 			});
 			$('.searchPokemon').on("keyup", function() {
 				var searchTerm = App.variables.session.searchTerm = $(this).val();
 				$('.menu-2 .pokemon-list').html(App.events.searchPokemon( searchTerm ) );
 			})
 
-			$('.pokemon-sort .sort-option').on("click", function() {
+			$('.pokemon-sort .sort-option').on("click", function() {				
+
+
 				$('.pokemon-sort .sort-option').removeClass("on");
 				var $this = $(this);				
 				$this.addClass("on");
-				App.variables.session.sortBy = $this.attr("data-sort");
-				App.variables.session.pokemonListView.searchPokemon( App.variables.session.searchTerm );
+				var sortBy = App.variables.session.sortBy = $this.attr("data-sort");
+
+				if(sortBy == "caught" || sortBy == "missing") {
+					App.variables.session.router.navigate("pokedex/"+sortBy, {
+						trigger: false
+					});
+					App.variables.session.pokemonListView.searchPokemon( App.variables.session.searchTerm );					
+				} else {
+					App.variables.session.router.navigate("pokedex", {
+						trigger: true
+					})
+				}
+								
 			});
 			$('.back').on("click", function(){
+
+				App.variables.session.router.navigate("", {
+						trigger: false
+				})
+
+
 				$('.menu-1').toggle("slide");
 				$('.menu-2').toggle("slide");
 				$('.menu-3').toggle("slide");
@@ -226,7 +307,8 @@ var App = {
 			currentUser: {},
 			pokemonListView: {},
 			sortBy: "all",
-			searchTerm: ""
+			searchTerm: "",
+			router: {}
 		},
 		backbone: {
 			User: {},		
@@ -234,7 +316,8 @@ var App = {
 			PokemonList: {},
 			PokemonListView: {},
 			PokemonView: {},
-			PokemonListView: {}
+			PokemonListView: {},
+			Router: {}
 		}		
 	}
 }
