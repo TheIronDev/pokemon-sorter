@@ -10,11 +10,12 @@ var App = {
 			this.handlers();
 		},
 		backboneInstances: function(){						
-			var pokemonList = App.variables.session.pokemonList = new App.variables.backbone.PokemonList();			
+			var pokemonList = App.variables.session.pokemonList = new App.variables.backbone.PokemonList();
 			App.variables.session.router = new App.variables.backbone.router({"pokemonList": pokemonList});
+			this.populatePokedex();
 			App.variables.session.router.start();
 			
-			this.populatePokedex();
+			
 
 		},
 		backboneExtends: function(){
@@ -25,31 +26,55 @@ var App = {
 					"": "index",
 					"pokedex": "pokedex",
 					"pokedex/caught": "caught",
-					"pokedex/missing": "missing"
+					"pokedex/missing": "missing",
+					"about" : "about"
 				},
 				index: function(){
-					if($('.menu-2').is(':visible')) {
-						$('.menu-1').toggle("slide");
+					
+					if($('.menu-2').is(':visible')) {						
 						$('.menu-2').toggle("slide");
 						$('.menu-3').toggle("slide");
+						$('.menu-1').toggle("slide");
+					}
+					if($('.menu-4').is(':visible')) {
+						$('.menu-4').toggle("slide");
+						$('.menu-1').toggle("slide");
+					}
+					
+				},
+				about: function() {					
+
+					if($('.menu-1').is(':visible')) {
+						$('.menu-1').toggle("slide");
+					}					
+					if(!$('.menu-4').is(':visible')) {
+						$('.menu-4').toggle("slide");
 					}
 				},
 				pokedex: function() {
-					$('.menu-2 .pokemon-list').html(App.events.drawPokedex());
+					$('.menu-2 .pokemon-list').html(App.events.drawPokedex());					
 					if($('.menu-1').is(':visible')) {
-						$('.menu-1').toggle("slide");
+						$('.menu-1').toggle("slide");						
+					}
+					if(!$('.menu-2').is(':visible')) {
 						$('.menu-2').toggle("slide");
 						$('.menu-3').toggle("slide");
 					}
+					if($('.menu-4').is(':visible')) {
+						$('.menu-4').toggle("slide");						
+					}
+
 					$('.pokemon-sort .sort-option').removeClass("on");
 					$('.sort-option[data-sort=all]').addClass("on");
 					
 				},
-				caught: function() {					
+				caught: function() {
+					$('.menu-2 .pokemon-list').html(App.events.drawPokedex());					
 					App.variables.session.sortBy = "caught";
 					this.sort("caught");
 				},
 				missing: function() {					
+					$('.menu-2 .pokemon-list').html(App.events.drawPokedex());
 					App.variables.session.sortBy = "missing";
 					this.sort("missing");
 				},
@@ -65,7 +90,7 @@ var App = {
 					App.variables.session.pokemonListView.searchPokemon( App.variables.session.searchTerm );
 				},
 				initialize: function(options) {
-					this.pokemonList = options.pokemonList;
+					this.pokemonList = options.pokemonList;					
 				},
 				start: function() {
 					Backbone.history.start({pushState: true});
@@ -131,8 +156,11 @@ var App = {
 					}
 				},
 				displayPokemonInfo: function() {
-					var attributes = this.model.toJSON();					
-					$('.menu-3').html(this.pokemonInfoTemplate(attributes));
+					var attributes = this.model.toJSON();										
+					$('.menu-3').html(this.pokemonInfoTemplate(attributes));					
+										
+
+					$('.menu-3').animate({"top": scrollY+10})
 				},
 				printLocations: function(locations) {
 					var $wrapper = $('<div>');
@@ -199,9 +227,10 @@ var App = {
 					var pokemonView = new App.variables.backbone.PokemonView({model:pokemon});					
 					this.$el.append(pokemonView.render().el);
 				},
-				searchPokemon: function(searchFilter) {
+				searchPokemon: function(searchFilter) {					
 					searchFilter = searchFilter.toLowerCase();
 					var sortType = App.variables.session.sortBy;
+
 					this.$el.html("");
 					var filteredList = this.collection.filter(function(pokemon){
 						var pokemonName = (pokemon.get("name").toLowerCase());
@@ -216,7 +245,7 @@ var App = {
 							}
 						}
 					});
-											
+
 					filteredList.forEach(this.addOne, this);
 				},
 				caughtPokemon: function() {
@@ -262,34 +291,41 @@ var App = {
 
 				if(sortBy == "caught" || sortBy == "missing") {
 					App.variables.session.router.navigate("pokedex/"+sortBy, {
-						trigger: false
+						trigger: true
 					});
-					App.variables.session.pokemonListView.searchPokemon( App.variables.session.searchTerm );					
 				} else {
 					App.variables.session.router.navigate("pokedex", {
 						trigger: true
 					})
-				}
-								
+				}								
 			});
 			$('.back').on("click", function(){
 
 				App.variables.session.router.navigate("", {
 						trigger: false
-				})
-
+				});
 
 				$('.menu-1').toggle("slide");
-				$('.menu-2').toggle("slide");
-				$('.menu-3').toggle("slide");
 
+				if($('.menu-2').is(":visible")) {
+					$('.menu-2').toggle("slide");
+					$('.menu-3').toggle("slide");	
+				}
+				if($('.menu-4').is(":visible")) {
+					$('.menu-4').toggle("slide");
+				}			
+			});
+
+			$('.about').on("click", function() {
+				App.variables.session.router.navigate("about", {
+						trigger: true
+				});
 			});
 		},
 		populatePokedex: function(){
-			var pokemonList = App.variables.session.pokemonList;
+			var pokemonList = App.variables.session.pokemonList;			
 			$.getJSON('js/pokedex.json', function(result){
-				pokemonList.reset(result);
-				App.variables.session.pokemonListView = new App.variables.backbone.PokemonListView({collection: pokemonList});
+				pokemonList.reset(result);				
 			});
 		},
 		drawPokedex: function(){
@@ -298,7 +334,9 @@ var App = {
 			return pokemonList.el;
 		},
 		searchPokemon: function(searchName) {
+			var pokemonList = App.variables.session.pokemonListView = new App.variables.backbone.PokemonListView({collection: App.variables.session.pokemonList});			
 			App.variables.session.pokemonListView.searchPokemon(searchName);
+			return pokemonList.el;
 		}
 	},
 	variables: {		
