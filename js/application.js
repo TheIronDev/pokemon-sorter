@@ -128,9 +128,9 @@ var App = {
 					this.model.on("change", this.render, this);
 					this.model.on("destroy", this.remove, this);
 				},
-				template: _.template('<div class="pokemon-inner" style="background-position: right <%= thumbnailPosition %>px;">\
-					<input type="checkbox" <% if(caught) print("checked=checked") %> /> <%= id %>: <%= name %></div>'),
-				pokemonInfoTemplate: _.template('<h3 class="pokemon-name"><%= name %></h3><img class="pokemon-image" src="<%= image %>" /><br/><% print(this.printLocations(locations)) %><br/><a href="<%= moreInfo.veekun %>">Veekums\'s Entry</a> '),
+				template: _.template('<div class="pokemon-inner" >\
+					<label><input type="checkbox" <% if(caught) print("checked=checked") %> /> <%= id %>: <%= name %></label><i style="background-position: right <%= thumbnailPosition %>px;">&nbsp;</i></div>'),
+				pokemonInfoTemplate: _.template('<h3 class="pokemon-name"><%= name %></h3><img class="pokemon-image" src="<%= image %>" /><br/><% print(this.printLocations(locations)) %><br/><a href="<%= moreInfo.veekun %>">Veekuns\'s Entry</a> '),
 				tagName: "div",
 				className: "pokemon", 
 				render: function() {
@@ -158,9 +158,9 @@ var App = {
 				displayPokemonInfo: function() {
 					var attributes = this.model.toJSON();										
 					$('.menu-3').html(this.pokemonInfoTemplate(attributes));					
-										
 
-					$('.menu-3').animate({"top": scrollY+10})
+
+					$('.menu-3').css({"top": scrollY+10})
 				},
 				printLocations: function(locations) {
 					var $wrapper = $('<div>');
