@@ -18,7 +18,10 @@ require.config({
 	    }
     }
 });
-
-require(['jquery', 'backbone', 'backboneLocalStorage'], function($){
-	console.log($);
+var router, pageView;
+require(['jquery', 'app/Router', 'app/views/PageView'], function($, Router, PageView){
+	$(document).ready(function(){
+		router = new Router();
+		pageView = new PageView({el: 'body',router: router});		
+	});
 });
