@@ -10,50 +10,38 @@ define(['backbone'], function(){
 			"pokedex/missing": "missing",
 			"about" : "about"
 		},
-		showPage: function(page) {
-			_.forEach($('.page'), function(pageItr){
-				var $page = $(pageItr);
-				if($page.hasClass(page)) {
-					$page.show();
-				} else {
-					$page.hide();
-				}
-			}, this)
-		},
 		index: function(){
 			this.showPage('page-home');
 		},
 		about: function() {					
-
-			if($('.page-home').is(':visible')) {
-				$('.page-home').toggle("slide");
-			}					
-			if(!$('.page-about').is(':visible')) {
-				$('.page-about').toggle("slide");
-			}
+			this.showPage('page-about');			
 		},
 		pokedex: function() {
-			
-			if($('.page-home').is(':visible')) {
-				$('.page-home').toggle("slide");						
-			}
-			if(!$('.page-pokedex').is(':visible')) {
-				$('.page-pokedex').toggle("slide");
-				$('.page-pokemon').toggle("slide");
-			}
-			if($('.page-about').is(':visible')) {
-				$('.page-about').toggle("slide");						
-			}
+			this.togglePokeDexPages('all');			
+		},
+		caught: function(event) {
+			this.togglePokeDexPages('caught');
+		},
+		missing: function() {
+			this.togglePokeDexPages('missing');
+		},
+		showPage: function(page) {
+			_.forEach($('.page'), function(pageItr){
+				var $page = $(pageItr);
+				if($page.hasClass(page) &&
+					!$page.is(':visible')) {
+					$page.toggle("slide");
+				} else if(!$page.hasClass(page) &&
+					$page.is(':visible')) {
+					$page.toggle("slide");
+				}
+			}, this)
+		},
+		togglePokeDexPages: function(pokePage) {
+			this.showPage('page-pokedex');
 
 			$('.pokemon-sort .sort-option').removeClass("on");
-			$('.sort-option[data-sort=all]').addClass("on");
-			
-		},
-		caught: function() {
-			
-		},
-		missing: function() {					
-			
+			$('.sort-option[data-sort='+pokePage+']').addClass("on");
 		},
 		start: function() {
 			Backbone.history.start({pushState: true});
