@@ -1,8 +1,10 @@
-define(['backbone'], function(){
+define(['backbone', "app/views/PokemonListView"], function(Backbone, PokemonListView){
 	var PageView = Backbone.View.extend({
 		initialize: function(options) {
 			this.router = options.router;
+			this.subViews.pokemonListView = new PokemonListView();
 		},
+		subViews: {},
 		events: {
 			"click .pokeList": "navigatePokedex",
 			"click .pokemon-sort .sort-option[data-sort=all]": "navigatePokedex",
