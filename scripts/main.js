@@ -1,6 +1,5 @@
 require.config({
     baseUrl: '/scripts/',
-    urlArgs: "bust=v3",
     paths: {
         jquery: 'vendor/jquery/jquery-1.8.2.min',
         backbone: 'vendor/backbone/backbone-min',

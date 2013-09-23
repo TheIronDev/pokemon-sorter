@@ -12,11 +12,12 @@ define(['backbone', 'backboneLocalStorage', 'app/models/Pokemon'],
 			$.getJSON(listContext.url, function(result){
 				// This is dirty and wrong, but I couldn't seem to get native collection.fetch working correctly...
 				listContext.reset(result);				
+				listContext.trigger('resetComplete');
 			});
 		},
 		filterList: function(options){			
-			var searchFilter = options.searchTerm || '';
-			var sortType = options.sort || 'all';
+			var searchFilter = options.searchTerm || '',
+				sortType = options.sort || 'all';
 			searchFilter = searchFilter.toLowerCase();
 
 			var filteredList = this.models.filter(function(pokemon){

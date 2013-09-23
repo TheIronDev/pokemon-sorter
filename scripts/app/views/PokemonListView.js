@@ -3,9 +3,9 @@ define(['backbone', "app/collections/PokemonList", 'app/views/PokemonView'],
 	var PokemonListView = Backbone.View.extend({
 		el: '.pokemonListView',
 		initialize: function(options) {
-			console.log("PokemonListView inited");
 			this.collection = new PokemonList();
-			this.listenToOnce(this.collection, 'reset', this.render);
+			this.options.sort=$('.sort-option.on').data('sort');
+			this.listenToOnce(this.collection, 'resetComplete', this.renderSorted);
 		},
 		options: {
 			'sort': 'all',
@@ -20,8 +20,8 @@ define(['backbone', "app/collections/PokemonList", 'app/views/PokemonView'],
 			pokemonList = pokemonList || pageView.subViews.pokemonListView.collection.models;			
 			_.each(pokemonList, function(pokemon) {
 				if(pokemon) {
-					var pokemonView = new PokemonView({model: pokemon});
-					this.$('.pokemon-list').append(pokemonView.render({pokedexSort: this.options.sort}));	
+					var pokemonView = new PokemonView({model: pokemon, pokedexSort: this.options.sort});
+					this.$('.pokemon-list').append(pokemonView.render());	
 				}				
 			}, this);			
 		},

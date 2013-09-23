@@ -27,7 +27,7 @@ define(['backbone'], function(Backbone){
 		},
 		toggleCaught: function() {
 			this.model.toggleCaught();
-			if(this.pageState.pokedexSort != "all") {
+			if(this.pageState.pokedexSort != "all") {				
 				this.remove();
 			}
 		},
