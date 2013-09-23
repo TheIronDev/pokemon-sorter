@@ -12,7 +12,8 @@ define(['backbone'], function(Backbone){
 			} else {
 				this.set({"caught": false});						
 			}
-			this.save();
+			console.log(this.toJSON())
+			this.save({"caught": this.get('caught')});
 		}
 	});
 

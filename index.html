@@ -79,5 +79,19 @@
 				</div>
 			</div>
 		</div>
+		<script id="pokemon-view-template" type="text/template">
+			<div class="pokemon-inner" >
+				<label>
+					<input type="checkbox" <% if(caught) print("checked=checked") %> /> <%= id %>: <%= name %>
+				</label>
+				<i style="background-position: right <%= thumbnailPosition %>px;">&nbsp;</i>
+			</div>
+		</script>
+		<script id="pokemonInfo-view-template" type="text/template">
+			<h3 class="pokemon-name"><%= name %></h3>
+			<img class="pokemon-image" src="<%= image %>" /><br/>
+			<% print(this.printLocations(locations)) %><br/>
+			<a href="<%= moreInfo.veekun %>">Veekuns Entry</a>
+		</script>
 	</body>
 </html>

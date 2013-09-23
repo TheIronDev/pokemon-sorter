@@ -1,18 +1,19 @@
 define(['backbone'], function(Backbone){
 	var PokemonView = Backbone.View.extend({
-		initialize: function() {
+		initialize: function(options) {
+			this.pageState.pokedexSort = options.pokedexSort || 'all';
 			this.model.on("change", this.render, this);
 			this.model.on("destroy", this.remove, this);
 		},
-		template: _.template('<div class="pokemon-inner" >\
-			<label><input type="checkbox" <% if(caught) print("checked=checked") %> /> <%= id %>: <%= name %></label><i style="background-position: right <%= thumbnailPosition %>px;">&nbsp;</i></div>'),
-		pokemonInfoTemplate: _.template('<h3 class="pokemon-name"><%= name %></h3><img class="pokemon-image" src="<%= image %>" /><br/><% print(this.printLocations(locations)) %><br/><a href="<%= moreInfo.veekun %>">Veekuns\'s Entry</a> '),
+		pageState: {},
+		template: _.template($('#pokemon-view-template').html()),
+		pokemonInfoTemplate: _.template($('#pokemonInfo-view-template').html()),
 		tagName: "div",
 		className: "pokemon", 
 		render: function() {
 			var attributes = this.model.toJSON();
 			this.$el.html(this.template(attributes));
-			return this;
+			return this.el;
 		},
 		remove: function() {
 			var pokemonView = this;
@@ -25,18 +26,15 @@ define(['backbone'], function(Backbone){
 			"mouseover .pokemon-inner": "displayPokemonInfo"
 		},
 		toggleCaught: function() {
-			var pokeSort = App.variables.session.sortBy;
 			this.model.toggleCaught();
-			if(pokeSort != "all") {
+			if(this.pageState.pokedexSort != "all") {
 				this.remove();
 			}
 		},
 		displayPokemonInfo: function() {
 			var attributes = this.model.toJSON();										
-			$('.menu-3').html(this.pokemonInfoTemplate(attributes));					
-
-
-			$('.menu-3').css({"top": scrollY+10})
+			$('.pokemon-info').html(this.pokemonInfoTemplate(attributes));
+			$('.pokemon-info').css({"top": $('body').scrollTop()+10})
 		},
 		printLocations: function(locations) {
 			var $wrapper = $('<div>');
