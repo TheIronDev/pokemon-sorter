@@ -5,7 +5,9 @@ require.config({
         backbone: 'vendor/backbone/backbone-min',
         underscore: 'vendor/underscore/underscore-min',
         backboneLocalStorage: 'vendor/backbone-localstorage/backbone-localstorage',
-        json2: 'vendor/json2'
+        backboneAnalytics: 'vendor/backbone-analytics/backbone.analytics',
+        json2: 'vendor/json2',
+        googleAnalytics: 'vendor/googleAnalytics/googleAnalytics'
     },
     shim: {
     	backbone: {
@@ -14,12 +16,16 @@ require.config({
     	},
     	backboneLocalStorage: {
 	      deps: ['backbone'],
-	      exports: 'Backbone'
-	    }
+	      exports: 'BackboneLocalStorage'
+	    },
+        backboneAnalytics: {
+            deps: ['backbone']
+        }
     }
 });
 var router, pageView;
-require(['jquery', 'app/Router', 'app/views/PageView'], function($, Router, PageView){
+require(['jquery', 'app/Router', 'app/views/PageView', 'googleAnalytics'], function($, Router, PageView, ga){
+
 	$(document).ready(function(){
 		router = new Router();
 		pageView = new PageView({el: 'body',router: router});		

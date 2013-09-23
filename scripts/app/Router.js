@@ -1,4 +1,4 @@
-define(['backbone'], function(){
+define(['backbone', 'backboneAnalytics'], function(){
 	var Router = Backbone.Router.extend({
 		initialize: function(options) {
 			this.start();
