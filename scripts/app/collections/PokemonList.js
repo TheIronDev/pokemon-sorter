@@ -6,10 +6,35 @@ define(['backbone', 'backboneLocalStorage', 'app/models/Pokemon'],
 			this.fetch({reset: true});
 		},
 		model: Pokemon,
-		url: 'scripts/data/pokedex.json',
+		url: '/scripts/data/pokedex.json',
 		localStorage: new Store("pokedex"),
-		parse: function(data) {
-		    return data;
+		fetch: function(){
+			var listContext = this;
+			$.getJSON(listContext.url, function(result){
+				// This is dirty and wrong, but I couldn't seem to get native collection.fetch working correctly...
+				listContext.reset(result);				
+			});
+		},
+		filterList: function(options){			
+			var searchFilter = options.searchTerm || '';
+			var sortType = options.sort || 'all';
+			searchFilter = searchFilter.toLowerCase();
+
+			var filteredList = this.models.filter(function(pokemon){
+				var pokemonName = pokemon.get("name").toLowerCase();
+				var isPokemonCaught = pokemon.get("caught");
+				if(pokemonName.indexOf(searchFilter) != -1 ) {
+					if(sortType == "all") {
+						return pokemon;
+					} else if(sortType == "caught" && isPokemonCaught) {
+						return pokemon;
+					} else if(sortType == "missing" && !isPokemonCaught) {
+						return pokemon;
+					}
+				}
+			});
+
+			return filteredList;
 		}
 	});
 

@@ -3,26 +3,38 @@ define(['backbone', "app/collections/PokemonList"], function(Backbone, PokemonLi
 		el: '.pokemonListView',
 		initialize: function(options) {
 			console.log("PokemonListView inited");
-			this.models = new PokemonList();
-			this.models.reset();
-			this.render();
+			this.collection = new PokemonList();
+			this.listenTo(this.collection, 'reset', this.render);
 		},
-		render: function(){
-			this.$('.pokemon-list').html('');
+		options: {
+			'sort': 'all',
+			'searchTerm': ''
 		},
 		events: {
 			"click .sort-option": "sortPokemonList",
 			"keyup .searchPokemon": "searchPokemon"
 		},
+		render: function(pokemonList){
+			pokemonList = pokemonList || pageView.subViews.pokemonListView.collection.models;			
+			var template = _.template('Template here '+pokemonList.length);
+			this.$('.pokemon-list').html(template);
+		},
+		renderSorted: function(options){
+			var filterOptions = _.extend({}, options, this.options),
+				filteredPokemonList = this.collection.filterList( filterOptions );
+			this.render(filteredPokemonList);
+		},
 		sortPokemonList: function(event){
 			var $sort = $(event.currentTarget),
-				sortBy = $sort.data("sort");
-			console.log(sortBy);
+				sortBy = $sort.data("sort");			
+			this.options.sort = sortBy;
+			this.renderSorted();
 		},
 		searchPokemon: function(event){
 			var $searchField = $(event.currentTarget),
-				searchTerm = $searchField.val();			
-			console.log(searchTerm);
+				searchTerm = $searchField.val();
+			this.options.searchTerm = searchTerm;
+			this.renderSorted();			
 		}
 	});
 
