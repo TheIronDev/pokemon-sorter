@@ -20,7 +20,7 @@ require.config({
     }
 });
 var router, pageView;
-require(['jquery', 'app/Router', 'app/views/PageView'], function($, Router, PageView){
+require(['jquery', 'app/Router', 'app/views/PageView', 'json2'], function($, Router, PageView){
 	$(document).ready(function(){
 		router = new Router();
 		pageView = new PageView({el: 'body',router: router});		

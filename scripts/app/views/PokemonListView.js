@@ -1,8 +1,14 @@
-define(['backbone'], function(Backbone){
+define(['backbone', "app/collections/PokemonList"], function(Backbone, PokemonList){
 	var PokemonListView = Backbone.View.extend({
 		el: '.pokemonListView',
 		initialize: function(options) {
-			console.log("PokemonListView inited")
+			console.log("PokemonListView inited");
+			this.models = new PokemonList();
+			this.models.reset();
+			this.render();
+		},
+		render: function(){
+			this.$('.pokemon-list').html('');
 		},
 		events: {
 			"click .sort-option": "sortPokemonList",
