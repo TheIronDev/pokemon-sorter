@@ -6,6 +6,13 @@ Contributers:
 Tyler Stark: theirondeveloper@gmail.com
 Michael Yao: yaozornation@gmail.com
 
+Build Script
+===
+node r.js -o build.js
+
+Version 1.0
+I went back and cleaned up the javascript, moving the code over to the AMD model and minifying all javascript assets. Functionality is still the same, but cleaner code.
+
 Version 0.9
 The app now persists upon browser refresh using localStorage.js
 
