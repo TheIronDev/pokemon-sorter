@@ -41,6 +41,9 @@ background: url(/images/pokeball.png) no-repeat center center, linear-gradient(t
 .site-nav li:hover{background: rgba(0,0,0,.2)}
 .site-nav li .sources li{padding: 0;}
 
+#social{width: 600px;padding: 1em;border: 1px dashed #fff;float: left;margin-left: 1em;}
+#social img{float: left;margin-right:1em;}
+.socialbar li{float: left;margin-right: 4px;}
 
 .page-home,
 .page-pokedex{float:left;min-height: 100%;}

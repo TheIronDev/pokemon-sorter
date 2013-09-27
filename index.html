@@ -9,6 +9,15 @@
 		<meta property="og:image" content="http://www.pokechecklist.com/images/ogImage.jpg"/>
 		<link rel="stylesheet" href="/css/style.css" />
 		<script type="text/javascript" data-main="/scripts/main.min" src="/scripts/vendor/require/require.js"></script>
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		  var js, fjs = d.getElementsByTagName(s)[0];
+		  if (d.getElementById(id)) return;
+		  js = d.createElement(s); js.id = id;
+		  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=451039194978822";
+		  fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		</script>
 	</head>
 	<body>
 		<div class="container">			
@@ -22,6 +31,21 @@
 					<!-- <li><h3>Locations</h3></li> Not available yet...--> 					
 					<li class="about"><h3>About this Project</h3></li>
 				</ul>
+				<section id="social">
+					<img src="http://www.gravatar.com/avatar/ebc665be7acc34b9f4aaa990f5607401.png?s=120">
+					<p>Hey there, thanks for checking out my Pokemon webapp! If you have any features you'd like to request, feel free to post comments at my<a href="http://theirondeveloper.com/my-pokechecklist-webapp-an-appeal-to-a-larger-audience/">blog post</a>.</p>
+
+					<p>If you like what you see, help me out by sharing it! Thanks! :)</p>
+					<ul class="socialbar">
+						<li>
+							<div class="fb-like" data-href="http://www.pokechecklist.com/" data-width="60" data-layout="button_count" data-show-faces="true" data-send="false"></div>
+						</li>
+						<li>
+							<a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+						</li>
+					</ul>
+				</section>
 			</div>
 			<div class="page page-pokedex">
 				<div class="pokemonListView">
