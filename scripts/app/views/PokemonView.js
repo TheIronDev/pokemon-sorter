@@ -16,9 +16,12 @@ define(['backbone'], function(Backbone){
 			return this.el;
 		},
 		remove: function() {
-			var pokemonView = this;
+			var pokemonView = this;			
 			this.$el.fadeOut(500, function(){
-				pokemonView.$el.remove();	
+				pokemonView.$el.remove();
+
+				var options = pokemonView.options;
+				options.pokemonListViewRef.decrementSortCount(options.pokedexSort);
 			});					
 		},
 		events: {
@@ -27,7 +30,7 @@ define(['backbone'], function(Backbone){
 		},
 		toggleCaught: function() {
 			this.model.toggleCaught();
-			if(this.pageState.pokedexSort != "all") {				
+			if(this.pageState.pokedexSort !== "all") {				
 				this.remove();
 			}
 		},
