@@ -9,7 +9,7 @@ define(['backbone', "app/collections/PokemonList", 'app/views/PokemonView'],
 		},
 		// Really, the following data should not be hard coded, but... I wanted to avoid an additional call if possible.
 		dirtyData: {
-			totalCount: 649
+			totalCount: 718
 		},
 		options: {
 			'sort': 'all',
