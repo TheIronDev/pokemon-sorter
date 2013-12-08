@@ -8,7 +8,8 @@ define(['backbone', 'backboneAnalytics'], function(){
 			"pokedex": "pokedex",
 			"pokedex/caught": "caught",
 			"pokedex/missing": "missing",
-			"about" : "about"
+			"about" : "about",
+            "importExport": "importExport"
 		},
 		index: function(){
 			this.showPage('page-home');
@@ -16,6 +17,9 @@ define(['backbone', 'backboneAnalytics'], function(){
 		about: function() {					
 			this.showPage('page-about');			
 		},
+        importExport: function(){
+            this.showPage('page-importExport');
+        },
 		pokedex: function() {
 			this.togglePokeDexPages('all');			
 		},

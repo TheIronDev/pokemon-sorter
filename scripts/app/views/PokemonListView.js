@@ -7,6 +7,10 @@ define(['backbone', "app/collections/PokemonList", 'app/views/PokemonView'],
 			this.options.sort=$('.sort-option.on').data('sort');
 			this.listenToOnce(this.collection, 'resetComplete', this.renderSorted);
 		},
+        resetCollection: function() {
+            this.collection = new PokemonList();
+            this.listenToOnce(this.collection, 'resetComplete', this.renderSorted);
+        },
 		// Really, the following data should not be hard coded, but... I wanted to avoid an additional call if possible.
 		dirtyData: {
 			totalCount: 718
@@ -22,7 +26,7 @@ define(['backbone', "app/collections/PokemonList", 'app/views/PokemonView'],
 		},
 		render: function(pokemonList){
 			this.$('.pokemon-list').html('');
-			pokemonList = pokemonList || pageView.subViews.pokemonListView.collection.models;			
+			pokemonList = pokemonList || this.collection.models;
 			_.each(pokemonList, function(pokemon) {
 				if(pokemon) {
 					var pokemonView = new PokemonView({model: pokemon, pokedexSort: this.options.sort, pokemonListViewRef: this});

@@ -23,7 +23,9 @@ ul{margin:1em;list-style: none}
 .left{float:left;}
 .right{float:right;}
 .clear{clear:both;}
+.hide{display: none;}
 .highlight{background: #ff0;background: rgba(250,250,0,.5);padding: 2px;display: inline-block}
+.col3{width: 30%;margin: 0 1%;}
 
 
 .container{width:100%;height:100%;}
@@ -62,6 +64,7 @@ background: url(/images/pokeball.png) no-repeat center center, linear-gradient(t
 .pokemon-info{padding:1em 0 0;position: absolute;right:1%;width:49%;border:1px solid #000;min-height: 20em;min-width: 15em;background: #efefef;overflow: visible !important;clear: both;}
 .pokemon-info .pokemon-name{float:left;padding-left: 1em;}
 .pokemon-info .pokemon-image{margin-top:-2em;}
+.page-importExport,
 .page-about{display:none;width: 100%;height: 100%;padding: 1em;
 background: #b3dced; /* Old browsers */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#b3dced), color-stop(50%,#29b8e5), color-stop(100%,#bce0ee)); /* Chrome,Safari4+ */
@@ -70,6 +73,11 @@ background: -o-linear-gradient(top,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /* Op
 background: -ms-linear-gradient(top,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /* IE10+ */
 background: linear-gradient(to bottom,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /* W3C */
 }
+
+.importExport-wrapper{}
+.importExport-wrapper textarea{width: 100%;min-height: 15em;}
+.importExport-wrapper input[type="submit"]{padding: 1em;background: rgba(100,200,0,.5);cursor: pointer;margin:0 auto; display: block;}
+.messageDiv{background: rgba(0,100,200,.4);text-align: center;padding: 1em;}
 
 .pokemon-list{margin-top:5em;background: #6393c1;}
 .pokemon{cursor: pointer;overflow: hidden;border:1px solid #666;border-top:1px solid #ccc;background: #6393c1;}

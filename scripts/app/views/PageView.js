@@ -1,9 +1,14 @@
-define(['backbone', "app/views/PokemonListView"], function(Backbone, PokemonListView){
+define(['backbone', "app/views/PokemonListView", "app/views/ImportExportView"], function(Backbone, PokemonListView, ImportExportView){
 	var PageView = Backbone.View.extend({
 		initialize: function(options) {
 			this.router = options.router;
 			this.subViews.pokemonListView = new PokemonListView();
+            this.subViews.importExportView = new ImportExportView();
+            this.listenTo(this.subViews.importExportView, 'refreshPokemonList', this.refreshPokemonList);
 		},
+        refreshPokemonList: function(){
+            this.subViews.pokemonListView.resetCollection();
+        },
 		subViews: {},
 		events: {
 			"click .pokeList": "navigatePokedex",
@@ -11,7 +16,8 @@ define(['backbone', "app/views/PokemonListView"], function(Backbone, PokemonList
 			"click .pokemon-sort .sort-option[data-sort=caught]": "navigatePokedexCaught",
 			"click .pokemon-sort .sort-option[data-sort=missing]": "navigatePokedexMissing",
 			"click .back": "navigateHome",
-			"click .about": "navigateAbout"
+			"click .about": "navigateAbout",
+            "click .importExport": "navigateImportExport"
 		},
 		navigateHome: function(){
 			this.router.navigate('', {trigger:true})
@@ -27,7 +33,10 @@ define(['backbone', "app/views/PokemonListView"], function(Backbone, PokemonList
 		},
 		navigateAbout: function(){
 			this.router.navigate('about', {trigger:true});
-		}
+		},
+        navigateImportExport: function(){
+            this.router.navigate('importExport', {trigger:true});
+        }
 	});
 
 	return PageView;

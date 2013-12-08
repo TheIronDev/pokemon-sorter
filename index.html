@@ -31,6 +31,7 @@
 					<li class="pokeList"><h3>Pok&eacute;mon List</h3></li>
 					<!-- <li><h3>Locations</h3></li> Not available yet...--> 					
 					<li class="about"><h3>About this Project</h3></li>
+                    <li class="importExport"><h3>Import/Export</h3></li>
 				</ul>
                 <section id="updates">
                     <h3>UPDATE!</h3>
@@ -95,7 +96,7 @@
 			<div class="page page-about">
 				<div class="about-wrapper">
 					<div class="back">&laquo; Back</div>
-					<p class="clear">This webapp was built to provide a single page that lets trainers check off caught pok&eacute;mon and provide information on where they can find remaining pok&eacute;mon.</p>					
+					<p class="clear">This webapp was built to provide a single page that lets trainers check off caught pok&eacute;mon and provide information on where they can find remaining pok&eacute;mon.</p>
 					<p>In my mind, Veekun, Serebii, and PokemonDB are the leaders in pokedex information. The goal of this app isn't to compete with any of the big guys, but instead to extend what they are already providing. The location information provided was captured from serebii, but does not provide the in-depth details that serebii or veekun is providing.</p>
 					<p>From a technology standpoint, this webapp is very experimental. Part of the motivation behind this project was to teach myself Backbone.js. The other part was to see if I can make a fun project and contribute back to the Pokemon community.</p>
                     <p>Important note: <span class="highlight">this webapp saves the Pokemon you have checked/unchecked to your <a href="http://en.wikipedia.org/wiki/Web_storage">browser's local storage</a>.</span> Import/Export isn't built yet, but is on the pipeline for the future.</p>
@@ -107,6 +108,29 @@
 					</ul>
 				</div>
 			</div>
+            <div class="page page-importExport">
+                <div class="importExport-wrapper">
+                    <div class="messageDiv hide"></div>
+                    <div class="back">&laquo; Back</div>
+                    <div>
+                        <div class="left col3 exportField">
+                            <h3>Export</h3>
+                            <textarea class="hide" id="export"></textarea>
+                            <input type="submit" value="Export" />
+                        </div>
+                        <div class="left col3 importField">
+                            <h3>Import</h3>
+                            <textarea id="import"></textarea>
+                            <input type="submit" value="Import" />
+                        </div>
+                        <div class="left col3 clearField">
+                            <h3>Clear</h3>
+                            <input type="submit" value="Clear" />
+                            <p class="message"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
 		<script id="pokemon-view-template" type="text/template">
 			<div class="pokemon-inner" >
