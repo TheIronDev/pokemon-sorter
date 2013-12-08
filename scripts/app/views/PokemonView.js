@@ -47,11 +47,15 @@ define(['backbone'], function(Backbone){
 
 			// Formatting JSON used to store the display layer
 			var gameSetsJson = {
+                "Generation VI" : {
+                    "X": locations.x,
+                    "Y": locations.y
+                },
 				"Pokemon Black/White": {
-					"Black 2": locations.black2,
-					"White 2": locations.white2,
-					"Black": locations.black,
-					"White": locations.white							
+					"Black 2": locations.black2 || "Not available",
+					"White 2": locations.white2 || "Not available",
+					"Black": locations.black || "Not available",
+					"White": locations.white || "Not available"
 				},
 				"Pokemon Diamond/Pearl/Platinum" : {
 					"Platinum": locations.platinum || "Not available",

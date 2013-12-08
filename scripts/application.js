@@ -129,8 +129,8 @@ var App = {
 					this.model.on("destroy", this.remove, this);
 				},
 				template: _.template('<div class="pokemon-inner" >\
-					<label><input type="checkbox" <% if(caught) print("checked=checked") %> /> <%= id %>: <%= name %></label><i style="background-position: right <%= thumbnailPosition %>px;">&nbsp;</i></div>'),
-				pokemonInfoTemplate: _.template('<h3 class="pokemon-name"><%= name %></h3><img class="pokemon-image" src="<%= image %>" /><br/><% print(this.printLocations(locations)) %><br/><a href="<%= moreInfo.veekun %>">Veekuns\'s Entry</a> '),
+					<label><input type="checkbox" <% if(caught) print("checked=checked") %> /> <%= id %>: <%= name %></label><i class="pokemon-sprite pokemon-<%= id %> ">&nbsp;</i></div>'),
+				pokemonInfoTemplate: _.template('<h3 class="pokemon-name"><%= name %></h3><img class="pokemon-image" src="/images/pokemon/<%= name %>.png" /><br/><% print(this.printLocations(locations)) %>'),
 				tagName: "div",
 				className: "pokemon", 
 				render: function() {
@@ -170,6 +170,10 @@ var App = {
 
 					// Formatting JSON used to store the display layer
 					var gameSetsJson = {
+                        "Generation VI" : {
+                            "x": locations.x,
+                            "y": locations.y
+                        },
 						"Pokemon Black/White": {
 							"Black 2": locations.black2,
 							"White 2": locations.white2,
