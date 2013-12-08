@@ -89,10 +89,10 @@ background: linear-gradient(to bottom,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /*
 .location-game-sets {margin: 0;border-top:1px solid #666;}
 .location-game-sets .location-game-set{background:#efefef;font-weight: bold;border-bottom:1px solid #666;border-top:1px solid #ddd;list-style: none;;padding: 0.5em}
 .location-game-sets .location-game-set .location-game-set-games{margin: 0;}
-.location-game-sets .location-game-set .location-game-set-games .game{background:rgba(0,0,0,.1);padding: 0.2em;list-style:none;}
+.location-game-sets .location-game-set .location-game-set-games .game{background:rgba(0,0,0,.1);padding: 0.2em;list-style:none;clear: both;}
 .location-game-sets .location-game-set .location-game-set-games .game:nth-child(even){background:none;}
-.location-game-sets .location-game-set .location-game-set-games .game-title{;min-width:100px;display: inline-block;}
-.location-game-sets .location-game-set .location-game-set-games .game-locations{font-weight:normal;}
+.location-game-sets .location-game-set .location-game-set-games .game-title{;min-width:100px;display: inline-block;float: left;}
+.location-game-sets .location-game-set .location-game-set-games .game-locations{font-weight:normal;float: left;}
 
 .about-wrapper{background: url(/images/pokeball.png) no-repeat center center rgba(0,0,0,.1);padding: 1em;border-radius: 1em}
 
