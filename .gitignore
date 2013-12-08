@@ -1,1 +1,6 @@
 node_modules/
+.DS_Store
+.idea/
+images/.DS_Store
+mergePokedexes.js
+serebii_script.js
