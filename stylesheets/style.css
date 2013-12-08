@@ -76,7 +76,7 @@ background: linear-gradient(to bottom,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /*
 .pokemon:hover{background-color: rgba(250,250,0,.2);}
 .pokemon-inner{line-height: 32px;overflow:hidden;padding:1em;}
 .pokemon-inner label{float: left;}
-.pokemon-inner i{float:right;background: url(/images/thumbnails.png) no-repeat right top;height:32px;width: 32px;}
+.pokemon-inner i{float:right;width: 32px;}
 
 .filters{overflow: hidden;padding:1em;background: #5984AE;position:fixed;width: 49%;box-shadow: 0 2px 3px -1px #333;z-index: 2;top:0;}
 .filters .pokemon-sort{overflow: hidden;float: left;}

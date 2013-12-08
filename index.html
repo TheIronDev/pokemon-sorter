@@ -7,7 +7,8 @@
 		<meta property="og:url" content="http://www.pokechecklist.com/"/>
 		<meta property="og:description" content="This is a Pokedex webapp made by Tyler Stark."/>
 		<meta property="og:image" content="http://www.pokechecklist.com/images/ogImage.jpg"/>
-		<link rel="stylesheet" href="/css/style.css" />
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+        <link rel="stylesheet" href="/stylesheets/sprite.css" />
 		<script type="text/javascript" data-main="/scripts/main.min" src="/scripts/vendor/require/require.js"></script>
 		<div id="fb-root"></div>
 		<script>(function(d, s, id) {
@@ -109,7 +110,7 @@
 				<label>
 					<input type="checkbox" <% if(caught) print("checked=checked") %> /> <%= id %>: <%= name %>
 				</label>
-                <img class="right" src="/images/thumbnails/<%= id %>.png" />
+                <i class="thumbnails-pokemon-<%= id %>">&nbsp;</i>
 			</div>
 		</script>
 		<script id="pokemonInfo-view-template" type="text/template">
