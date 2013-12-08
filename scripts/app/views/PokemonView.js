@@ -17,7 +17,7 @@ define(['backbone'], function(Backbone){
 		},
 		remove: function() {
 			var pokemonView = this;			
-			this.$el.fadeOut(500, function(){
+			this.$el.fadeOut(100, function(){
 				pokemonView.$el.remove();
 
 				var options = pokemonView.options;
