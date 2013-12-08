@@ -11,17 +11,31 @@ define(['backbone'], function(Backbone){
             "click .clearField input": "clear"
         },
         export: function(){
-            this.$('#export').val(JSON.stringify(localStorage));
+            var pokemonList = localStorage.pokedex ? localStorage.pokedex.split(',') : '',
+                exportList = [];
+            for (var index in pokemonList) {
+                var currentPokemon = localStorage['pokedex-'+pokemonList[index]];
+                if(currentPokemon) {
+                    var parsedCurrentPokemon = JSON.parse(currentPokemon) || {};
+                    if (parsedCurrentPokemon && parsedCurrentPokemon.caught) {
+                        exportList.push(pokemonList[index]);
+                    }
+                }
+            }
+            exportList = exportList.join(',');
+            this.$('#export').val(exportList.toString());
             this.$('#export').show();
             this.$('.messageDiv').text("Copy the export field and save it into a text file. When you are ready, paste the file into the import field.");
             this.$('.messageDiv').show();
         },
         import: function(){
             var importValue = this.$('#import').val(),
-                parsedValue = JSON.parse(importValue);
-            for(var parsedParam in parsedValue){
+                pokemonList = importValue.split(',');
+            localStorage.clear();
+            localStorage.setItem('pokedex', importValue);
+            for(var parsedParam in pokemonList){
                 if (parsedParam) {
-                    localStorage.setItem(parsedParam,parsedValue[parsedParam]);
+                    localStorage.setItem('pokedex-'+pokemonList[parsedParam], '{"caught":true}');
                 }
             }
             this.$('.messageDiv').show();
