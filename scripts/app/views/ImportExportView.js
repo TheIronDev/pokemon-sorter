@@ -39,7 +39,7 @@ define(['backbone'], function(Backbone){
                 }
             }
             this.$('.messageDiv').show();
-            this.$('.messageDiv').text("Local Storage has been imported. Please refresh the page.");
+            this.$('.messageDiv').text("Local Storage has been imported.");
             this.trigger('refreshPokemonList');
         },
         clear: function(){
