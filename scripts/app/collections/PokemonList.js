@@ -17,13 +17,15 @@ define(['backbone', 'backboneLocalStorage', 'app/models/Pokemon'],
 		},
 		filterList: function(options){			
 			var searchFilter = options.searchTerm || '',
-				sortType = options.sort || 'all';
+				sortType = options.sort || 'all',
+                pokedexFilter = options.pokedexFilter || 'id';
 			searchFilter = searchFilter.toLowerCase();
 
 			var filteredList = this.models.filter(function(pokemon){
-				var pokemonName = pokemon.get("name").toLowerCase();
-				var isPokemonCaught = pokemon.get("caught");
-				if(pokemonName.indexOf(searchFilter) != -1 ) {
+				var pokemonName = pokemon.get("name").toLowerCase(),
+                    isPokemonCaught = pokemon.get("caught");
+
+				if(pokemonName.indexOf(searchFilter) !== -1 && pokemon.get(pokedexFilter) ) {
 					if(sortType == "all") {
 						return pokemon;
 					} else if(sortType == "caught" && isPokemonCaught) {
@@ -34,7 +36,13 @@ define(['backbone', 'backboneLocalStorage', 'app/models/Pokemon'],
 				}
 			});
 
-			return filteredList;
+            if (pokedexFilter !== "id") {
+                return _.sortBy(filteredList, function(pokemon){
+                    return parseInt(pokemon.get(pokedexFilter));
+                });
+            } else {
+                return filteredList;
+            }
 		}
 	});
 
