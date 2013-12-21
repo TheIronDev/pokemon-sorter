@@ -15,6 +15,12 @@ node r.js -o build.js
 
 Version History
 ===
+Version 2.0
+Yes, I did just jump an entire number for versioning.  Between versions 1 and 2 I added the following:
+
+* Import/Export
+* All the Pokemon from X/Y
+* The option to list pokemon based on different Pokedexes.
 
 Version 1.0
 I went back and cleaned up the javascript, moving the code over to the AMD model and minifying all javascript assets. Functionality is still the same, but cleaner code.
