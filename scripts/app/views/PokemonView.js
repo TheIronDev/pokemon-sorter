@@ -37,60 +37,32 @@ define(['backbone'], function(Backbone){
 			}
 		},
 		displayPokemonInfo: function() {
-			var attributes = this.model.toJSON();										
+			var attributes = this.model.toJSON(),
+				locations = attributes.locations,
+				gameSetsJson = {
+					"Generation VI" : {
+						"X": locations.x,
+						"Y": locations.y
+					},
+					"Pokemon Black/White": {
+						"Black 2": locations.black2 || "Not available",
+						"White 2": locations.white2 || "Not available",
+						"Black": locations.black || "Not available",
+						"White": locations.white || "Not available"
+					},
+					"Pokemon Diamond/Pearl/Platinum" : {
+						"Platinum": locations.platinum || "Not available",
+						"Diamond": locations.diamond || "Not available",
+						"Pearl": locations.pearl || "Not available"
+					},
+					"Pokemon HeartGold/SoulSilver": {
+						"Heart Gold": locations.heartgold || "Not available",
+						"Soul Silver": locations.soulsilver || "Not available"
+					}
+				};
+			attributes.gameSetsJson = gameSetsJson;
 			$('.pokemon-info').html(this.pokemonInfoTemplate(attributes));
 			$('.pokemon-info').css({"top": $('body').scrollTop()+10})
-		},
-		printLocations: function(locations) {
-			var $wrapper = $('<div>');
-			$wrapper.append("<h4>Locations</h4>");
-			var $gameSets = $('<ul>');
-			$gameSets.attr("class", "location-game-sets");
-
-			// Formatting JSON used to store the display layer
-			var gameSetsJson = {
-                "Generation VI" : {
-                    "X": locations.x,
-                    "Y": locations.y
-                },
-				"Pokemon Black/White": {
-					"Black 2": locations.black2 || "Not available",
-					"White 2": locations.white2 || "Not available",
-					"Black": locations.black || "Not available",
-					"White": locations.white || "Not available"
-				},
-				"Pokemon Diamond/Pearl/Platinum" : {
-					"Platinum": locations.platinum || "Not available",
-					"Diamond": locations.diamond || "Not available",
-					"Pearl": locations.pearl || "Not available"
-				},
-				"Pokemon HeartGold/SoulSilver": {
-					"Heart Gold": locations.heartgold || "Not available",
-					"Soul Silver": locations.soulsilver || "Not available"
-				}
-			};
-			
-			// Refactored the previous code by using a display-layor json
-			for(var gameSet in gameSetsJson) {
-				var $gameSet = $('<li>');
-				$gameSet.attr("class", "location-game-set");
-				var $gameSetGames = $('<ul>');
-				$gameSetGames.attr("class", "location-game-set-games");
-				$gameSet.append(gameSet);
-					
-				for(var game in gameSetsJson[gameSet]) {
-					var $game = $('<li class="game">');							
-					
-					$game.html("<span class='game-title'>"+game+":</span><span class='game-locations'> "+ gameSetsJson[gameSet][game]+"</span>");
-					$gameSetGames.append($game);
-				}
-
-				$gameSet.append($gameSetGames);
-				$gameSets.append($gameSet);
-			}
-
-			$wrapper.append($gameSets);
-			return $wrapper.html();
 		}
 	});
 
