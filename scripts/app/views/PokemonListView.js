@@ -76,6 +76,8 @@ define(['backbone', "app/collections/PokemonList", 'app/views/PokemonView'],
 				this.options.currentCount = count;
 				var countTemplate = _.template('(<%= count %>)'),
 					totalCount = this.pokedexFilterCounts[this.options.pokedexFilter];
+
+				this.$('.sort-all .count').text(countTemplate({count: (totalCount)}));
 				if(sortType === "missing") {
 					this.$('.sort-missing .count').text(countTemplate({count: count}));
 					this.$('.sort-caught .count').text(countTemplate({count: (totalCount-count)}));
@@ -83,9 +85,6 @@ define(['backbone', "app/collections/PokemonList", 'app/views/PokemonView'],
 					this.$('.sort-caught .count').text(countTemplate({count: count}));
 					this.$('.sort-missing .count').text(countTemplate({count: (totalCount-count)}));
 				} else {
-					// Rather than save the caught/missing count... and rather than rechecking each of these counts...
-					// I went with the easier (but slightly less usable solution) of removing counts when in 'all' mode.
-					this.$('.sort-all .count').text(countTemplate({count: (totalCount)}));
 					this.$('.sort-caught .count').text('');
 					this.$('.sort-missing .count').text('');
 				}
