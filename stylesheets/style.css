@@ -79,7 +79,7 @@ background: linear-gradient(to bottom,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /*
 .importExport-wrapper input[type="submit"]{padding: 1em;background: rgba(100,200,0,.5);cursor: pointer;margin:0 auto; display: block;}
 .messageDiv{background: rgba(0,100,200,.4);text-align: center;padding: 1em;}
 
-.pokemon-list{margin-top:5em;background: #6393c1;}
+.pokemon-list{background: #6393c1;}
 .pokemon{cursor: pointer;overflow: hidden;border:1px solid #666;border-top:1px solid #ccc;background: #6393c1;}
 .pokemon:nth-child(even){background: rgba(0,0,0,.1)}
 .pokemon:hover{background-color: rgba(250,250,0,.2);}
@@ -87,12 +87,16 @@ background: linear-gradient(to bottom,  #b3dced 0%,#29b8e5 50%,#bce0ee 100%); /*
 .pokemon-inner label{float: left;}
 .pokemon-inner i{float:right;width: 32px;}
 
-.filters{overflow: hidden;padding:1em;background: #5984AE;position:fixed;width: 49%;box-shadow: 0 2px 3px -1px #333;z-index: 2;top:0;}
+.filters{overflow: hidden;padding:1em;background: #5984AE;box-shadow: 0 2px 3px -1px #333;margin-bottom: 0.5em;}
 .filters .pokemon-sort{overflow: hidden;float: left;}
 .filters .pokemon-sort ul{list-style: none}
 .filters .pokemon-sort ul li{margin-right: 0.5em;cursor: pointer;float:left;}
 .filters .pokemon-sort ul li:hover{background: rgba(0,0,0,.1)}
 .filters .pokemon-sort ul li.on{color:yellow;}
+
+.filters .pokedex-radios {clear:both;overflow: hidden}
+.filters .pokedex-radios label {float: left; background: rgba(0,0,0,.1);padding: 5px;margin: 2px 5px;}
+.filters .pokedex-radios input{}
 
 
 .location-game-sets {margin: 0;border-top:1px solid #666;}
