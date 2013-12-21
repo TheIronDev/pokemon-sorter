@@ -12,8 +12,15 @@ define(['backbone', "app/collections/PokemonList", 'app/views/PokemonView'],
 				this.listenToOnce(this.collection, 'resetComplete', this.renderSorted);
 			},
 			// Really, the following data should not be hard coded, but... I wanted to avoid an additional call if possible.
-			dirtyData: {
-				totalCount: 718
+			pokedexFilterCounts: {
+				"id": 718,
+				"johto_id": 256,
+				"hoenn_id": 202,
+				"sinnoh_id": 210,
+				"unova_id": 300,
+				"kalos_central_id": 150,
+				"kalos_coastall_id": 153,
+				"kalos_mountain_id": 151
 			},
 			options: {
 				'sort': 'all',
@@ -63,7 +70,7 @@ define(['backbone', "app/collections/PokemonList", 'app/views/PokemonView'],
 			updateCounts: function(count, sortType){
 				this.options.currentCount = count;
 				var countTemplate = _.template('(<%= count %>)'),
-					totalCount = this.dirtyData.totalCount;
+					totalCount = this.pokedexFilterCounts[this.options.pokedexFilter];
 				if(sortType === "missing") {
 					this.$('.sort-missing .count').text(countTemplate({count: count}));
 					this.$('.sort-caught .count').text(countTemplate({count: (totalCount-count)}));
