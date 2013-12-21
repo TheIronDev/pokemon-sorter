@@ -146,7 +146,8 @@
 		<script id="pokemon-view-template" type="text/template">
 			<div class="pokemon-inner" >
 				<label>
-					<input type="checkbox" <% if(caught) print("checked=checked") %> /> <%= id %>: <%= name %>
+					<input type="checkbox" <% if(caught) print("checked=checked") %> />
+                    <%= id %> <%= id !== pokedexFilterId ? '('+pokedexFilterId+')' : '' %> : <%= name %>
 				</label>
                 <i class="thumbnails-pokemon-<%= id %>">&nbsp;</i>
 			</div>

@@ -2,6 +2,7 @@ define(['backbone'], function(Backbone){
 	var PokemonView = Backbone.View.extend({
 		initialize: function(options) {
 			this.pageState.pokedexSort = options.pokedexSort || 'all';
+			this.pokedexFilter = options.pokedexFilter;
 			this.model.on("change", this.render, this);
 			this.model.on("destroy", this.remove, this);
 		},
@@ -12,6 +13,7 @@ define(['backbone'], function(Backbone){
 		className: "pokemon", 
 		render: function() {
 			var attributes = this.model.toJSON();
+			attributes.pokedexFilterId = attributes[this.pokedexFilter];
 			this.$el.html(this.template(attributes));
 			return this.el;
 		},

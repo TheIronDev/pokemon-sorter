@@ -38,7 +38,12 @@ define(['backbone', "app/collections/PokemonList", 'app/views/PokemonView'],
 				pokemonList = pokemonList || this.collection.models;
 				_.each(pokemonList, function(pokemon) {
 					if(pokemon) {
-						var pokemonView = new PokemonView({model: pokemon, pokedexSort: this.options.sort, pokemonListViewRef: this});
+						var pokemonView = new PokemonView({
+							model: pokemon,
+							pokedexSort: this.options.sort,
+							pokedexFilter: this.options.pokedexFilter,
+							pokemonListViewRef: this
+						});
 						this.$('.pokemon-list').append(pokemonView.render());
 					}
 				}, this);
