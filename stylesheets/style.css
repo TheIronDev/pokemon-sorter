@@ -61,7 +61,7 @@ background: url(/images/pokeball.png) no-repeat center center, linear-gradient(t
 .page-pokedex{float:left;min-height: 100%;}
 
 .page-pokedex{display:none;width:49%;}
-.pokemon-info{padding:1em 0 0;position: absolute;right:1%;width:49%;border:1px solid #000;min-height: 20em;min-width: 15em;background: #efefef;overflow: visible !important;clear: both;}
+.pokemon-info{padding:1em 0 0;position: fixed;top:1em;right:1%;width:49%;border:1px solid #000;min-height: 20em;min-width: 15em;background: #efefef;overflow: visible !important;clear: both;}
 .pokemon-info .pokemon-name{float:left;padding-left: 1em;}
 .pokemon-info .pokemon-image{margin-top:-2em;}
 .page-importExport,

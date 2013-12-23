@@ -62,7 +62,6 @@ define(['backbone'], function(Backbone){
 				};
 			attributes.gameSetsJson = gameSetsJson;
 			$('.pokemon-info').html(this.pokemonInfoTemplate(attributes));
-			$('.pokemon-info').css({"top": $('body').scrollTop()+10})
 		}
 	});
 
