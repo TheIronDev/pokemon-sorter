@@ -6,8 +6,8 @@ This Web-app was built with the intention of enhancing the Pokemon experience. I
 All Pokemon data and images are sole property of Nintendo and GameFreak, Inc. The location data was gathered from Serebii.net, image sprites gathered from pokemondb.net, and various other pokemon data was gathered from Veekun's pokedex project.
 
 Contributers:
-Tyler Stark: theirondeveloper@gmail.com
-Michael Yao: yaozornation@gmail.com
+Tyler Stark
+Michael Yao
 
 Build Script
 ===
