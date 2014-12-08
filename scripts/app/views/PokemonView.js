@@ -41,6 +41,8 @@ define(['backbone'], function(Backbone){
 				locations = attributes.locations,
 				gameSetsJson = {
 					"Generation VI" : {
+						Ruby: locations.ruby,
+						Saphire: locations.sapphire,
 						"X": locations.x,
 						"Y": locations.y
 					},
